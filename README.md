@@ -1,19 +1,5 @@
 # Smart Product Pricing 
 
-Developed as part of a Amazon ML Challenge 2025 by Team Innovatrix
-
-## Team Details
-
-Team Name: Innovatrix  
-
-Team Members:
-- Sarthak Jain  
-- Keshav Kumar  
-- Aishwarya Lakshmi  
-- Ritik Sharma  
-
----
-
 ## Overview
 
 This project presents a machine learning solution for predicting product prices in an e-commerce environment. The model leverages both textual and visual data to learn complex relationships between product attributes and their corresponding prices.
