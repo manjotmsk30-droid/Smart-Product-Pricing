@@ -1,0 +1,77 @@
+# No functional change—pure cleanup
+paths:
+  data_dir: "data/"
+  train_csv: "data/train.csv"
+  test_csv: "data/test.csv"
+  images_dir: "data/images/"
+  artifacts_dir: "artifacts/"
+  cache_dir: "artifacts/cache/"
+  models_dir: "artifacts/models/"
+  runs_dir: "runs/"
+
+seed: 2025
+
+cv:
+  n_folds: 5
+  stratify_bins: 20
+  shuffle: true
+
+features:
+  text:
+    # max_len removed (unused by current code)
+    tfidf_max_features: 150000
+    tfidf_ngram_range: [1, 2]
+    tfidf_min_df: 5
+    svd_components: 300
+  image:
+    size: [224, 224]
+    backbone: "clip"     # this is the one the code reads
+    # freeze_encoder removed (unused here)
+  tabular:
+    target_encoding_smoothing: 20
+    outlier_clip_percentiles: [0.5, 99.5]
+
+lgbm:
+  num_leaves: 128
+  learning_rate: 0.03
+  n_estimators: 4000
+  min_child_samples: 20
+  feature_fraction: 0.7
+  bagging_fraction: 0.8
+  bagging_freq: 1
+  lambda_l1: 0.01
+  lambda_l2: 0.01
+  early_stopping_rounds: 200
+  verbose: 100
+
+text_model:
+  model_name: "distilbert-base-uncased"
+  max_length: 128
+  batch_size: 32
+  epochs_frozen: 5
+  epochs_unfrozen: 2
+  lr_head: 0.001
+  lr_encoder: 0.00002
+  dropout: 0.1
+  weight_decay: 0.01
+  gradient_clip: 1.0
+
+image_model:
+  # backbone removed (unused); head config only
+  batch_size: 64
+  epochs: 10
+  lr: 0.001
+  head_type: "mlp"
+
+blender:
+  model_type: "elasticnet"
+  alpha: 0.001
+  l1_ratio: 0.1
+
+target:
+  transform: "log1p"
+  clip_min: 0.01
+
+inference:
+  batch_size: 128
+  num_workers: 4
